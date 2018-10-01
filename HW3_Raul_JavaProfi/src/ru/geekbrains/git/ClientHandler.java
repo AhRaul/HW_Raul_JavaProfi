@@ -15,6 +15,7 @@ public class ClientHandler implements Closeable {
     private LocalDateTime connectTime;
 
     public ClientHandler(Socket socket, Server server) {
+        super();
         this.server = server;
         this.socket = socket;
         connectTime = LocalDateTime.now();
@@ -23,6 +24,8 @@ public class ClientHandler implements Closeable {
             channel = ChannelBase.of(socket);
             new Thread(() -> {
                 auth();
+                Client cl = new Client();           //?? дз 3 профи
+                cl.readMessageToFile();             //?? дз 3 профи вывод пользователю 100 сообщений
                 System.out.println(nick + " handler waiting for new massages");
                 while (socket.isConnected()) {
                     Message msg = channel.getMessage();
